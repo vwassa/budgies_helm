@@ -47,5 +47,5 @@ spec:
           timeoutSeconds: 5
           periodSeconds: 10
           successThreshold: 1
-          {{- toYaml .Values.resources | nindent 10 -}}        resources:
+        resources:
           {{- toYaml .Values.resources | nindent 10 -}}
