@@ -5,6 +5,7 @@ serviceAccount:
   name: "developer"
 
 image:
+  registry: "registry.hub.docker"
   pullPolicy: IfNotPresent
   tag: "vwassa/ktor_app"
 

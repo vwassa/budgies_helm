@@ -19,7 +19,7 @@ spec:
       restartPolicy: Always
       containers:
       - name: budgies
-        image: {{ .Values.image.tag }}:{{ .Chart.Version }}
+        image: {{ .Values.image.registry }}/{{ .Values.image.tag }}:{{ .Chart.Version }}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:
         - containerPort: {{ .Values.service.port }}
