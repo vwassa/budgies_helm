@@ -5,9 +5,11 @@ serviceAccount:
   name: "developer"
 
 image:
-  registry: "registry.hub.docker"
   pullPolicy: IfNotPresent
   tag: "vwassa/ktor_app"
+  registry: "registry.hub.docker"
+  secret:
+    name: dockerpub
 
 resources: 
   limits:

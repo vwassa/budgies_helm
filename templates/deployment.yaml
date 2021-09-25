@@ -7,6 +7,8 @@ metadata:
     {{- include "budgies.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
+  imagePullSecrets:
+        - name: {{ .Values.image.secret.name }}
   selector:
     matchLabels:
       {{- include "budgies.selectorLabels" . | nindent 6 }}
