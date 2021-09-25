@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{- include "budgies.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "budgies.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "budgies.selectorLabels" . | nindent 8 }}
+    spec:
+      serviceAccountName: {{ .Values.serviceAccount.name }}
+      restartPolicy: Always
+      containers:
+      - name: budgies
+        image: {{ .Values.image.tag }}:{{ .Chart.Version }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - containerPort: {{ .Values.service.port }}
+          protocol: TCP
+        readinessProbe:
+          httpGet:
+              path: /health/check
+              port: {{ .Values.service.port }}
+              scheme: HTTP
+          initialDelaySeconds: 15
+          timeoutSeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
+          failureThreshold: 60
+        livenessProbe:
+          httpGet:
+            path: /health/check
+            port: {{ .Values.service.port }}
+            scheme: HTTP
+          initialDelaySeconds: 180
+          timeoutSeconds: 5
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 30
+        resources:
+          {{ toYaml .Values.resources | nindent 10 }}

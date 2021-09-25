@@ -1,0 +1,23 @@
+namespace: app
+replicaCount: 1
+
+serviceAccount:
+  name: "developer"
+
+image:
+  pullPolicy: IfNotPresent
+  tag: "vwassa/ktor_app"
+
+resources: 
+  limits:
+    cpu: 300m
+    memory: 500Mi
+  requests:
+    cpu: 200m
+    memory: 300Mi
+
+service:
+  type: LoadBalancer
+  port: 8080
+
+
