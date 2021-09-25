@@ -8,7 +8,7 @@ metadata:
 spec:
   replicas: {{ .Values.replicaCount }}
   imagePullSecrets:
-        - name: {{ .Values.image.secret.name }}
+    - name: {{ .Values.image.secret.name }}
   selector:
     matchLabels:
       {{- include "budgies.selectorLabels" . | nindent 6 }}
@@ -47,4 +47,4 @@ spec:
           successThreshold: 1
           failureThreshold: 30
         resources:
-          {{ toYaml .Values.resources | nindent 10 }}
+          {{- toYaml .Values.resources | nindent 10 -}}
