@@ -7,7 +7,7 @@ serviceAccount:
 image:
   pullPolicy: IfNotPresent
   tag: "vwassa/ktor_app"
-  registry: "registry.hub.docker"
+  registry: "docker.io"
   secret:
     name: dockerpub
 
